@@ -1,0 +1,21 @@
+# Higest resulution with 16:9 and everything calculated on the fly. We can provide additional mask also but that is not required
+
+curl -H 'Content-Type: application/json' -X POST http://0.0.0.0:8000/v1/infer -d '{
+    "prompt": "The video is a driving scene through a modern urban environment, likely captured from a dashcam or a similar fixed camera setup inside a vehicle. The scene unfolds on a wide, multi-lane road flanked by tall, modern buildings with glass facades. The road is relatively empty, with only a few cars visible, including a black car directly ahead of the camera, maintaining a steady pace. The camera remains static, providing a consistent view of the road and surroundings as the vehicle moves forward.On the left side of the road, there are several trees lining the sidewalk, providing a touch of greenery amidst the urban setting. Pedestrians are visible on the sidewalks, some walking leisurely, while others stand near the buildings. The buildings are a mix of architectural styles, with some featuring large glass windows and others having more traditional concrete exteriors. A few commercial signs and logos are visible on the buildings, indicating the presence of businesses and offices.Traffic cones are placed on the road ahead, suggesting some form of roadwork or lane closure, guiding the vehicles to merge or change lanes. The road markings are clear, with white arrows indicating the direction of travel. The sky is clear, suggesting a sunny day, which enhances the visibility of the scene. Throughout the video, the vehicle maintains a steady speed, and the camera captures the gradual approach towards the intersection, where the road splits into different directions. The overall atmosphere is calm and orderly, typical of a city during non-peak hours.
+",
+    "video": "https://raw.githubusercontent.com/abhinavg4/cosmos-transfer2.5/main/assets_nim/high/car_input.mp4",
+    "resolution": "1080",
+    "edge": {
+        "control_weight": 0.25,
+    },
+    "depth:
+        "control_weight": 0.25,
+    },
+    "seg": {
+        "control_weight": 0.25,
+        "control_prompt": "car, building"
+    },
+    "vis": {
+        "control_weight": 0.25,
+    }
+}' | jq -r '.b64_video' | base64 -d > output.mp4
